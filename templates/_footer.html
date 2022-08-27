@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% if footer is not none and sections is not none %}
+    {% if css_framework == 'MUNI' %}
+        {% if current_section is not none %}
+            {% set colSize = 4 / current_section | length %}
+        {% else %}
+            {% set colSize = 4 / sections | length %}
+        {% endif %}
+    {% else %}
+        {% if current_section is not none %}
+            {% set colSize = 12 / current_section | length %}
+        {% else %}
+            {% set colSize = 12 / sections | length %}
+        {% endif %}
+    {% endif %}
+ <footer class="footer text-left{% if not css_framework == 'MUNI' %} bg-secondary secondary-contrast-color{% endif %}">
+        <div class="{% if css_framework == 'MUNI' %}grid{% else %}row{% endif%} footer-margin">
+            {% if current_section is not none %}
+                {% for block in current_section %}
+                    {% if format is not none and (format == 'HTML' or format == 'markdown') %}
+                        <div class="{% if css_framework == 'MUNI' %}grid__cell size--m--{{ colSize }}-4{% else %}col-padding-0 col-md-{{ colSize }}{% endif %}">
+                            {{ block }}
+                        </div>
+                    {% else %}
+                        <div class="{% if css_framework == 'MUNI' %}grid__cell size--m--{{ colSize }}-4{% else %}col-padding-0 col-md-{{ colSize }}{% endif %}">
+                            {{ block }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                {% for block in sections %}
+                    {% if format is not none and (format == 'HTML' or format == 'markdown') %}
+                        <div class="{% if css_framework == 'MUNI' %}grid__cell size--m--{{ colSize }}-4{% else %}col-padding-0 col-md-{{ colSize }}{% endif %}">
+                            {{ block }}
+                        </div>
+                    {% else %}
+                        <div class="{% if css_framework == 'MUNI'%}grid__cell size--m--{{ colSize }}-4{% else %}col-padding-0 col-md-{{ colSize }}{% endif %}">
+                            {{ block }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </footer>
+{% endif %}

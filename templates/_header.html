@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+{% if css_framework == 'MUNI' %}
+    <header class="header">
+        <div class="row-main header__wrap">
+            <div class="grid">
+                <div class="grid__cell size--m--2-4 push--m--2-4 center">
+                    <div class="header__side">
+                        {% if languages | length > 2 %}
+                            <nav class="menu-lang menu-lang--select" aria-label="{{ _('lang_selection') }}">
+                                <p class="menu-lang__selected">
+                                    {% if current_language is not none %}
+                                        <a href="#" class="menu-lang__selected__link">
+                                            {{ current_language }}
+                                        </a>
+                                    {% endif %}
+                                </p>
+                                <p class="menu-lang__popup">
+                                    {% for langKey, langName in languages.items() %}
+                                        {% if langName != current_language and currentUrl ~ "&language=" ~ langKey %}
+                                            <a href="{{ currentUrl ~ "?language=" ~ langKey }}{%- for name, value in queryParams.items() %}{{ "&" ~ name ~ "=" ~ value }}{%- endfor %}"
+                                               rel="alternate" hreflang="{{ langKey }}" lang="{{ langKey }}" class="menu-lang__popup__link">
+                                                {{ langName }}
+                                            </a>
+                                        {% endif %}
+                                    {% endfor %}
+                                </p> b
+                            </nav>
+                        {% else %}
+                            <nav class="menu-lang" aria-label="{{ _('lang_selection') }}">
+                                <p class="menu-lang__selected">
+                                    {% for langKey, langName in languages.items() %}
+                                        {% if langName != current_language and currentUrl ~ "&language=" ~ langKey %}
+                                            <a href="{{ currentUrl ~ "?language=" ~ langKey }}{%- for name, value in queryParams.items() %}{{ "&" ~ name ~ "=" ~ value }}{%- endfor %}"
+                                               rel="alternate" hreflang="{{ langKey }}" lang="{{ langKey }}" class="menu-lang__selected__link">
+                                                {{ langName }}
+                                            </a>
+                                        {% endif %}
+                                    {% endfor %}
+                                </p>
+                            </nav>
+                        {% endif %}
+                        <nav class="menu-mobile" aria-label="{{ _('mobile_lang_selection') }}">
+                            <div class="menu-mobile__wrap">
+                                <div class="row-main">
+                                    <ul class="menu-mobile__list">
+                                        {% set counter = 0 %}
+                                        {% for langKey, langName in languages.items() %}
+                                            {% if counter < 5 and langName != current_language and currentUrl ~ "&language=" ~ langKey %}
+                                                <li class="menu-mobile__item">
+                                                    <a href="{{ currentUrl ~ "?language=" ~ langKey }}{%- for name, value in queryParams.items() %}{{ "&" ~ name ~ "=" ~ value }}{%- endfor %}"
+                                                       rel="alternate" hreflang="{{ langKey }}" lang="{{ langKey }}" class="menu-mobile__link menu-mobile__link--lang">
+                                                        {{ langKey|upper }}
+                                                    </a>
+                                                </li>
+                                                {% set counter = counter + 1 %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                <div class="grid__cell size--m--2-4 pull--m--2-4 center">
+                    <img src="{% if logo is not none %}{{ logo }}{% endif %}" class="header-img" alt="{% if name is not none %}{{ name }}{% endif %}"/>
+                </div>
+            </div>
+        </div>
+    </header>
+{% else %}
+    <header class="header border-top border-primary border-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 order-md-last text-md-end">
+                    {% if languages | length > 2 %}
+                        <div class="dropdown language-bar mt-3">
+                            <a id="dropdown-language" class="btn btn-secondary dropdown-toggle text-primary bg-white border-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {% if current_language is not none %}
+                                    <span class="d-md-none">{{ current_language | upper }}</span><span class="d-none d-md-inline">{{ attribute(languages, current_language) }}</span>
+                                {% else %}
+                                    {{ current_language | upper }}
+                                {% endif %}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdown-language">
+                                {% for langKey, langName in languages.items() %}
+                                    {% if langName != current_language %}
+                                        <li>
+                                            <a class="dropdown-item text-primary" href="{{ currentUrl ~ "?language=" ~ langKey }}{%- for name, value in queryParams.items() %}{{ "&" ~ name ~ "=" ~ value }}{%- endfor %}">
+                                                <span class="d-md-none">{{ langKey | upper }}</span><span class="d-none d-md-inline">{{ langName }}</span>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% else %}
+                        <p class="language-bar mt-3">
+                            {% for langKey, langName in languages.items() %}
+                                {% if langName != current_language and currentUrl ~ "&language=" ~ langKey %}
+                                    <a href="{{ currentUrl ~ "?language=" ~ langKey }}{%- for name, value in queryParams.items() %}{{ "&" ~ name ~ "=" ~ value }}{%- endfor %}"
+                                       rel="alternate" hreflang="{{ langKey }}" lang="{{ langKey }}" class="text-decoration-none text-primary">
+                                        <span class="d-md-none">{{ langKey | upper }}</span><span class="d-none d-md-inline">{{ langName }}</span>
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 order-md-first text-md-start">
+                    <img src="{% if logo is not none %}{{ logo }}{% endif %}" class="header-img mt-3" alt="{% if name is not none %}{{ name }}{% endif %}"/>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endif %}

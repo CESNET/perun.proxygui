@@ -1,0 +1,19 @@
+css_framework: MUNI
+MUNI_faculty:
+keystore: path
+key_id: id
+token_alg: RS256
+footer:
+  format: HTML
+  sections:
+    cs:
+      - Zprava
+      - Zprava2
+    en:
+      - message
+      - message2
+languages:
+  cs: Cestina
+  en: English
+logo:
+name: MUNI
