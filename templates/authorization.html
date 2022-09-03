@@ -4,10 +4,10 @@
 <title>Authorization page</title>
 {% endblock %}
 
-{% block body %}
+{% block content %}
 <div class="content">
-    <h1 style="text-align: center">Authorization page</h1>
-    <h1 style="text-align: center"><span>{{ _('service') }}</span>: {{service}}</h1>
-    <h1 style="text-align: center">email: {{email}}</h1>
+    <h1 style="text-align: center"><span>{{ _("You are not authorized to access the service ") }}</span> <span>{{ _("service") }}</span></h1>
+    <h1 style="text-align: center"><span>{{ _('We will now redirect you to a registration page, where you will apply for the access.') }}</span></h1>
+    <h1 style="text-align: center"> <a href="{{ registration_url }}"><span>{{ _("Proceed to registration") }}</span></a></h1>
 </div>
 {% endblock %}

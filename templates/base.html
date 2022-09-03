@@ -8,14 +8,14 @@
     {# skip default CSS, favicon and JavaScript #}
     <meta name="robots" content="noindex, nofollow">
     {% block preload %}
-      {% if css_framework == 'MUNI' %}
-        <link rel="stylesheet" type="text/css" href="/static/MuniWeb/css/style{% if faculty is not none%}-{{ faculty }}{% endif %}.css" />
+      {% if cfg.css_framework == 'MUNI' %}
+        <link rel="stylesheet" type="text/css" href="/static/MuniWeb/css/style{% if cfg.MUNI_faculty is not none%}-{{ cfg.MUNI_faculty }}{% endif %}.css" />
       {% else %}
         <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
       {% endif %}
     {% endblock %}
   </head>
-  <body id="{{ templateId }}" class="{% if css_framework == 'MUNI'  %}framework_muni{% else %}framework_bootstrap5{% endif %}">
+  <body id="{{ templateId }}" class="{% if cfg.css_framework == 'MUNI'  %}framework_muni{% else %}framework_bootstrap5{% endif %}">
     <div id="layout">
       {% block header %}{% include "_header.html" %}{% endblock %}
       {% block contentwrapper %}
@@ -31,7 +31,7 @@
       {% block footer %}{% include "_footer.html" %}{% endblock %}
     </div>
     {% block postload %}
-      {% if css_framework == 'MUNI' %}
+      {% if cfg.css_framework == 'MUNI' %}
         <script src="/static/jquery-3.6.0.min.js"></script>
         <script src="/static/MuniWeb/js/app.js"></script>
         <script src="/static/campus-idp-muni.js"></script>
