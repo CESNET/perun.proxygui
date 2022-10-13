@@ -1,0 +1,30 @@
+css_framework: MUNI
+MUNI_faculty:
+keystore: path_to_the_keystore
+key_id: id
+token_alg: RS256
+footer:
+  format: HTML
+  sections:
+    cs:
+      - Máte problém s přihlášením?
+      - Službu Autentizační brána zajišťuje Ústav výpočetní techniky.
+    en:
+      - Having trouble logging in?
+      - The Authentication Gateway service is provided by the Institute of Computer Science.
+    de:
+      - de1
+      - de2
+languages:
+  cs: Čeština
+  en: English
+  de: Deutsch
+logo: /static/MuniWeb/img/favicon.ico
+name: MUNI
+secret_key: secret
+redirect_url: url
+host:
+  server_name: localhost:5000
+  ip-address: 0.0.0.0
+  port: 80
+  debug: False

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title></title>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <h3 style="text-align: center"><span>{{ _("You are about to access service, which is in testing environment.") }}</span></h3>
+    <h3 style="text-align: center"> <a href="{{ redirect_url }}"><span>{{ _("Continue") }}</span></a></h3>
+</div>
+{% endblock %}

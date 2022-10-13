@@ -1,0 +1,44 @@
+{% filter trim %}
+<!DOCTYPE html>
+<html lang="{{ locale }}" xml:lang="{{ locale }}">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <title>{{ pagetitle }}</title>
+    {# skip default CSS, favicon and JavaScript #}
+    <meta name="robots" content="noindex, nofollow">
+    {% block preload %}
+      {% if cfg.css_framework == 'MUNI' %}
+        <link rel="stylesheet" type="text/css" href="/static/MuniWeb/css/style{% if cfg.MUNI_faculty is not none%}-{{ cfg.MUNI_faculty }}{% endif %}.css" />
+      {% else %}
+        <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      {% endif %}
+    {% endblock %}
+  </head>
+  <body id="{{ templateId }}" class="{% if cfg.css_framework == 'MUNI'  %}framework_muni{% else %}framework_bootstrap5{% endif %}">
+    <div id="layout">
+      {% block header %}{% include "_header.html" %}{% endblock %}
+      {% block contentwrapper %}
+        <div id="content">
+            <div class="wrap">
+              {% block content %}{% endblock %}
+            </div>
+        </div>{# content #}
+      {% endblock contentwrapper %}
+      <div id="push"></div>
+    </div>{# layout #}
+    <div id="foot">
+      {% block footer %}{% include "_footer.html" %}{% endblock %}
+    </div>
+    {% block postload %}
+      {% if cfg.css_framework == 'MUNI' %}
+        <script src="/static/jquery-3.6.0.min.js"></script>
+        <script src="/static/MuniWeb/js/app.js"></script>
+        <script src="/static/campus-idp-muni.js"></script>
+      {% else %}
+        <script src="/static/bootstrap/js/bootstrap.bundle.min.js"></script>
+      {% endif %}
+    {% endblock %}
+  </body>
+</html>
+{% endfilter %}
