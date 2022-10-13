@@ -1,6 +1,6 @@
 import json
 
-from flask import Flask, render_template, request, redirect, make_response, jsonify, session
+from flask import Flask, render_template, request, make_response, jsonify, session
 from flask_babel import Babel, get_locale, gettext
 from jwcrypto import jwk, jwt
 from jwcrypto.jwk import JWKSet, JWK
@@ -16,6 +16,8 @@ if 'css_framework' not in cfg:
     cfg['css_framework'] = 'bootstrap'
 
 app.secret_key = cfg["secret_key"]
+
+app.config['SERVER_NAME'] = cfg['host']['server_name']
 
 TOKEN_ALG = cfg['token_alg']
 KEY_ID = cfg['key_id']
@@ -46,15 +48,10 @@ def inject_conf_var():
 
 
 @babel.localeselector
-def get_locale():
+def get_locale():  # noqa
     if request.args.get('lang'):
         session['lang'] = request.args.get('lang')
     return session.get('lang', 'en')
-
-
-@app.route('/')
-def index():
-    return redirect('/IsTestingSP')
 
 
 @app.route('/authorization/<message>')
@@ -91,9 +88,13 @@ def sp_authorization(message):
 def is_testing_sp():
     return render_template(
         "IsTestingSP.html",
-        redirect_url=REDIRECT_URL
+        redirect_url=REDIRECT_URL,
     )
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(
+        host=cfg["host"]["ip-address"],
+        port=cfg["host"]["port"],
+        debug=cfg["host"]["debug"],
+    )

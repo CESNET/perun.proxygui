@@ -6,8 +6,10 @@
 
 {% block content %}
 <div class="content">
-    <h1 style="text-align: center"><span>{{ _("You are not authorized to access the service ") }}</span> <span>{{ _("service") }}</span></h1>
-    <h1 style="text-align: center"><span>{{ _('We will now redirect you to a registration page, where you will apply for the access.') }}</span></h1>
-    <h1 style="text-align: center"> <a href="{{ registration_url }}"><span>{{ _("Proceed to registration") }}</span></a></h1>
+    <h1 style="text-align: center"><span>{{ _("Access forbidden") }}</span></h1>
+    <p style="text-align: center; font-size: 30px"  ><span>{{ _("You don't meet the prerequisites for accessing the service: ") }}</span> {{ service }}</p>
+    <p style="text-align: center; font-size: 30px"><span>{{ _('For more information about this service please visit this ') }}</span><a href="{{ registration_url }}"><span>{{ _("page") }}</span></a></p>
+    <p style="text-align: center; font-size: 30px"><span>{{ _('If you think you should have an access contact service operator at ') }}</span>{{ email }}</p>
+    <h3 style="text-align: center; font-size: 30px"><span>{{ _("Problem with login to service: ") }}</span> {{ service }}</h3>
 </div>
 {% endblock %}

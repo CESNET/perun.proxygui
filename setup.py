@@ -8,6 +8,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         "setuptools",
+        "SATOSA==8.0.1",
         "PyYAML>=6.0<7",
         "Flask>=2.2.2<3",
         "jwcrypto>=1.3.1<2",
